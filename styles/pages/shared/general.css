@@ -1,0 +1,55 @@
+:root {
+  --background-color: #f0f0f0; /* light grey background */
+  --primary-color: #ff5722; /* vibrant orange */
+  --secondary-color: #212121; /* dark grey */
+  --accent-color: #8bc34a; /* vibrant green */
+  --text-color: #000000; /* black text */
+  --border-width: 3px;
+  --secondary-border-width: 2px;
+  --border-radius: 8px;
+}
+
+html {
+  height: 100%;
+}
+
+main {
+  margin: 0;
+  padding: 0;
+  margin-top: 60px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "Montserrat", sans-serif;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: var(--border-width) solid var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--accent-color);
+}
+
+input,
+textarea {
+  border: var(--border-width) solid var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}

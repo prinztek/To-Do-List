@@ -1,0 +1,32 @@
+dialog {
+  background-color: var(--background-color);
+  border: var(--border-width) solid var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 20px;
+}
+
+dialog button {
+  margin-top: 10px;
+}
+
+.dialog button.close-add-task-btn,
+.dialog button.close-view-task-btn {
+  background-color: transparent;
+  border: none;
+  color: var(--secondary-color);
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.dialog button.close-add-task-btn:hover,
+.dialog button.close-view-task-btn:hover {
+  color: var(--primary-color);
+}
+
+.task-information-input,
+.view-task-information-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  vertical-align: middle;
+}

@@ -1,0 +1,10 @@
+.archived-task-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; /* Adjust the gap as needed */
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+}

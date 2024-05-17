@@ -1,0 +1,151 @@
+.task {
+  background-color: var(--background-color);
+  border: var(--border-width) solid var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  margin-bottom: 12px;
+}
+
+.task p {
+  margin: 10px 0;
+}
+
+.task-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.task-description {
+  font-size: 1em;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.task-target-date {
+  font-size: 0.9em;
+  color: var(--secondary-color);
+  margin-bottom: 15px;
+}
+
+.task-current-state {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.task-states {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.task-states input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+.task-states input[type="radio"] + label {
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.task-states input[type="radio"] + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.task-states input[type="radio"]:checked + label:before {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.task-states input[type="radio"]:checked + label:after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.task-states input[type="radio"]:checked + label {
+  color: var(--accent-color);
+}
+
+.task-btns {
+  display: flex;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.task-btns button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: var(--border-width) solid var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.task-btns .delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.task-btns .archive-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.task-btns .unarchive-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.task-btns button:hover {
+  opacity: 0.8;
+}
+
+/* Media Queries for responsiveness */
+
+/* For tablets and small desktops */
+@media (max-width: 1024px) {
+  .state {
+    flex: 1 1 45%; /* Take up 45% of container on smaller screens */
+  }
+
+  .task-states,
+  .task-btns {
+    flex-wrap: wrap;
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 600px) {
+  .state {
+    flex: 1 1 100%; /* Take up 100% of container on mobile devices */
+  }
+
+  .task-states,
+  .task-btns {
+    flex-wrap: wrap;
+  }
+}

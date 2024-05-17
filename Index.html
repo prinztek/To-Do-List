@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <!-- font styling -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- styling -->
+    <link rel="stylesheet" href="./styles/pages/shared/general.css" />
+    <link rel="stylesheet" href="./styles/pages/shared/task.css" />
+    <link rel="stylesheet" href="./styles/pages/home.css" />
+    <link rel="stylesheet" href="./styles/pages/dialog.css" />
+    <link rel="stylesheet" href="./styles/pages/shared/header.css" />
+    <link rel="stylesheet" href="./styles/pages/shared/footer.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/Index.html">Home</a></li>
+          <li><a href="/Promises.html">Promises</a></li>
+          <li><a href="/Archive.html">Archive</a></li>
+          <li><a href="/About.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="add-task">
+        <button class="add-task-btn">Create a Promise</button>
+        <!-- <button class="show-task-container-btn">Show task_Container</button> -->
+        <!-- <button class="show-localStorage-btn">Show localStorage</button> -->
+      </div>
+      <!-- ++++++++++++++++++++++++++++++ DIALOG FOR ADDING TASK ++++++++++++++++++++++++++++++ -->
+      <dialog id="add-task-dialog">
+        <button class="close-add-task-btn">Close</button>
+        <div class="task-information-input">
+          <input class="task-name-input" type="text" />
+          <textarea
+            class="task-description-input"
+            cols="30"
+            rows="10"
+          ></textarea>
+          <input class="task-target-date-input" type="date" />
+        </div>
+        <button type="button" class="confirm-btn">Confirm</button>
+      </dialog>
+      <!-- ++++++++++++++++++++++++++++++ DIALOG FOR VIEWING TASK ++++++++++++++++++++++++++++++ -->
+      <dialog id="view-task-dialog">
+        <button class="close-view-task-btn">Close</button>
+        <div class="view-task-information-input">
+          <input class="view-task-name-input" type="text" />
+          <textarea
+            class="view-task-description-input"
+            cols="60"
+            rows="10"
+            maxlength="400"
+          ></textarea>
+          <input class="view-task-target-date-input" type="date" />
+        </div>
+        <button type="button" class="save-changes-btn">Save Changes</button>
+      </dialog>
+      <!-- STATES -->
+      <div class="task-container">
+        <div class="state pending">
+          <h2>Pending</h2>
+          <div class="pending-tasks"></div>
+        </div>
+        <div class="state fulfilled">
+          <h2>Fulfilled</h2>
+          <div class="fulfilled-tasks"></div>
+        </div>
+        <div class="state rejected">
+          <h2>Rejected</h2>
+          <div class="rejected-tasks"></div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>From Philippines with Love</p>
+    </footer>
+    <script type="module" src="./scripts/home.js"></script>
+  </body>
+</html>

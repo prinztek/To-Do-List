@@ -1,0 +1,42 @@
+.add-task {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.add-task button {
+  font-size: 14px;
+  font-weight: bold;
+  border: var(--secondary-border-width) solid var(--secondary-color);
+}
+
+.task-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  padding-top: 8px;
+}
+
+.state {
+  background-color: var(--background-color);
+  /* border: var(--secondary-width) solid var(--secondary-color); */
+  border-radius: var(--border-radius);
+  padding: 20px;
+  width: 32%; /* Adjust width to fit three columns with some space between */
+  box-sizing: border-box;
+}
+
+.state h2 {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 8px;
+  border-bottom: var(--secondary-border-width) solid var(--secondary-color);
+  padding-bottom: 10px;
+}
+
+.pending-tasks,
+.fulfilled-tasks,
+.rejected-tasks {
+  margin-top: 15px;
+}
