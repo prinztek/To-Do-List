@@ -14,5 +14,7 @@ This project is a simple To Do List web application that utilizes the localStora
 - **Persistent Storage**: Tasks are stored in the browser's localStorage, ensuring data persistence across sessions.
 
 
-
-
+## Screenshots
+![Alt text](./images/home.png)
+![Alt text](./images/promises.png)
+![Alt text](./images/archive.png)
