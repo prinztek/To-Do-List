@@ -1,4 +1,4 @@
-export default class Task_Container {
+export default class TaskContainer {
   constructor() {
     this.task_container_obj = [];
   }

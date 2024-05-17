@@ -1,5 +1,5 @@
-import manageLocalStorage from "./manage-LocalStorage.js";
-import task_container from "./task-container.js";
+import manageLocalStorage from "./manageLocalStorage.js";
+import task_container from "./taskContainer.js";
 
 const all_task_container = document.querySelector(".all-task-container");
 const view_task_modal = document.querySelector("#view-task-dialog");

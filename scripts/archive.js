@@ -1,5 +1,5 @@
-import manageLocalStorage from "./manage-LocalStorage.js";
-import task_container from "./task-container.js";
+import manageLocalStorage from "./manageLocalStorage.js";
+import task_container from "./taskContainer.js";
 
 const archived_task = document.querySelector(".archived-task-container");
 

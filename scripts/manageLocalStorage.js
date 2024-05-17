@@ -1,5 +1,5 @@
-import task_container from "./task-container.js";
-import Task from "../data/task-class.js";
+import Task from "../data/taskClass.js";
+import task_container from "./taskContainer.js";
 
 function manageLocalStorage() {
   // adds all the content of localStorage to task_container
