@@ -3,9 +3,6 @@ import generateRandomNumber from "./genrateRandomNumber.js";
 import taskContainer from "./taskContainer.js";
 import Task from "../data/taskClass.js";
 
-// localStorage.clear("Task_Container")
-// localStorage.clear("TaskContainer")
-
 // DOM elements
 const taskContainerHTML = document.querySelector(".task-container");
 const pendingTasksHTML = document.querySelector(".pending-tasks");
@@ -20,37 +17,29 @@ const saveBtn = document.querySelector(".save-changes-btn");
 const addTaskBtn = document.querySelector(".add-task-btn");
 const showTaskContainerBtn = document.querySelector(".show-task-container-btn");
 const show_localStorage_btn = document.querySelector(".show-localStorage-btn");
-
 let selectedTaskOpen;
+
 // save the changes made to the input fields
 // on load =  render the tasks in localStorage if there are any and add it to task container object
 manageLocalStorage();
 renderTasks(pendingTasksHTML, fulfilledTasksHTML, rejectedTasksHTML);
 
-function renderTasks(pending_HTML, fulfilled_HTML, rejected_HTML) {
-  const pending_tasks_HTML = taskContainer.get_all_pending_task_HTML();
-  pending_HTML.innerHTML = pending_tasks_HTML;
-
-  const fulfilled_tasks_HTML = taskContainer.get_all_fulfilled_task_HTML();
-  fulfilled_HTML.innerHTML = fulfilled_tasks_HTML;
-
-  const rejected_tasks_HTML = taskContainer.get_all_rejected_task_HTML();
-  rejected_HTML.innerHTML = rejected_tasks_HTML;
+function renderTasks(pendingContainer, fulfilledContainer, rejectedContainer) {
+  pendingContainer.innerHTML = taskContainer.getAllPendingTaskHTML();
+  fulfilledContainer.innerHTML = taskContainer.getAllFulfilledTaskHTML();
+  rejectedContainer.innerHTML = taskContainer.getAllRejectedTaskHTML();
 }
 
-function renderPendingTasks(HTML_element) {
-  const pending_tasks_HTML = taskContainer.get_all_pending_task_HTML();
-  HTML_element.innerHTML = pending_tasks_HTML;
+function renderPendingTasks(elementContainer) {
+  elementContainer.innerHTML = taskContainer.getAllPendingTaskHTML();
 }
 
-function renderFulfilledTasks(HTML_element) {
-  const fulfilled_tasks_HTML = taskContainer.get_all_fulfilled_task_HTML();
-  HTML_element.innerHTML = fulfilled_tasks_HTML;
+function renderFulfilledTasks(elementContainer) {
+  elementContainer.innerHTML = taskContainer.getAllFulfilledTaskHTML();
 }
 
-function renderRejectedTasks(HTML_element) {
-  const rejected_tasks_HTML = taskContainer.get_all_rejected_task_HTML();
-  HTML_element.innerHTML = rejected_tasks_HTML;
+function renderRejectedTasks(elementContainer) {
+  elementContainer.innerHTML = taskContainer.getAllRejectedTaskHTML();
 }
 
 // Opens the add task modal
@@ -82,25 +71,25 @@ function isWhiteSpaceOnly(input_string) {
 if (confirmBtn) {
   confirmBtn.addEventListener("click", () => {
     // get user input from task modal
-    let name_input = document.querySelector(".task-name-input").value;
-    let desc_input = document.querySelector(".task-description-input").value;
-    let date_input = document.querySelector(".task-target-date-input").value;
+    let nameInput = document.querySelector(".task-name-input").value;
+    let descInput = document.querySelector(".task-description-input").value;
+    let dateInput = document.querySelector(".task-target-date-input").value;
 
-    if (isWhiteSpaceOnly(name_input)) {
+    if (isWhiteSpaceOnly(nameInput)) {
       alert("Empty Promises are not allowed!");
       return;
     }
     // creates an instance of (task) and then
-    const new_task = new Task(
+    const newTask = new Task(
       generateRandomNumber(),
-      name_input,
-      desc_input,
-      date_input,
+      nameInput,
+      descInput,
+      dateInput,
       { pending: true, fulfilled: false, rejected: false },
       false
     );
 
-    taskContainer.add_task(new_task); // console.log(new_task);
+    taskContainer.addTask(newTask); // console.log(new_task);
 
     addTaskModal.close(); // Closes the add task modal
 
@@ -110,26 +99,26 @@ if (confirmBtn) {
 
 if (saveBtn) {
   saveBtn.addEventListener("click", () => {
-    save_changes(selectedTaskOpen);
+    saveChanges(selectedTaskOpen);
   });
 }
 
-function save_changes(task_id) {
-  const selectedTask = taskContainer.get_specific_task(task_id);
-  let name = document.querySelector(".view-task-name-input");
-  let desc = document.querySelector(".view-task-description-input");
-  let date = document.querySelector(".view-task-target-date-input");
+function saveChanges(taskId) {
+  const selectedTask = taskContainer.getTask(taskId);
+  let nameInput = document.querySelector(".view-task-name-input");
+  let descInput = document.querySelector(".view-task-description-input");
+  let dateInput = document.querySelector(".view-task-target-date-input");
 
-  if (isWhiteSpaceOnly(name.value)) {
+  if (isWhiteSpaceOnly(nameInput.value)) {
     alert("Empty Promises are not allowed!");
     return;
   }
 
-  selectedTask.name = name.value;
-  selectedTask.description = desc.value;
-  selectedTask.target_date = date.value;
+  selectedTask.name = nameInput.value;
+  selectedTask.description = descInput.value;
+  selectedTask.target_date = dateInput.value;
 
-  taskContainer.save_to_storage();
+  taskContainer.saveToStorage();
   viewTaskModal.close();
   selectedTaskOpen = null;
   renderTasks(pendingTasksHTML, fulfilledTasksHTML, rejectedTasksHTML);
@@ -154,7 +143,7 @@ if (taskContainerHTML) {
 
     const taskIdAttribute = taskHTML.id;
     const taskId = taskIdAttribute.match(regex)[0];
-    console.log(taskId);
+    const selectedTask = taskContainer.getTask(taskId);
 
     // VIEW TASK DETAILS
     if (
@@ -165,40 +154,32 @@ if (taskContainerHTML) {
     ) {
       viewTaskModal.showModal();
 
-      const selected_task = taskContainer.get_specific_task(taskId);
-
       // set the input value from the task
-      let name = document.querySelector(".view-task-name-input");
-      let desc = document.querySelector(".view-task-description-input");
-      let date = document.querySelector(".view-task-target-date-input");
-      name.value = selected_task.name;
-      desc.value = selected_task.description;
-      date.value = selected_task.target_date;
-
-      selectedTaskOpen = selected_task.id;
+      let nameInput = document.querySelector(".view-task-name-input");
+      let descInput = document.querySelector(".view-task-description-input");
+      let dateInput = document.querySelector(".view-task-target-date-input");
+      nameInput.value = selectedTask.name;
+      descInput.value = selectedTask.description;
+      dateInput.value = selectedTask.target_date;
+      selectedTaskOpen = selectedTask.id;
     }
 
     // CHANGE TASK STATE
     if (target.tagName === "INPUT") {
-      const selected_task = taskContainer.get_specific_task(taskId);
       const inputRadioParentHTML = target.closest(".task-states");
       const inputRadioBtns = inputRadioParentHTML.querySelectorAll("input");
       const newState = target.value;
 
-      inputRadioBtns.forEach((radio_btn) => {
-        if (newState === radio_btn.defaultValue) radio_btn.checked = true;
+      inputRadioBtns.forEach((radiotBtn) => {
+        if (newState === radiotBtn.defaultValue) radiotBtn.checked = true;
       });
 
       // previous state = render the current state HTML (task removal)
-      let prevState = "";
-      for (const [key, value] of Object.entries(selected_task.get_state())) {
-        if (value === true) {
-          prevState = key; // console.log(prev_state);
-          break;
-        }
-      }
+      let prevState = selectedTask.getCurrentState();
+
       // next state = render the next state HTML (task addition)
-      selected_task.set_state(newState); // console.log(state_value);
+      selectedTask.setState(newState);
+      taskContainer.saveToStorage();
 
       // update ui
       if (prevState === "pending") {
@@ -216,32 +197,18 @@ if (taskContainerHTML) {
       } else if (newState === "rejected") {
         renderRejectedTasks(rejectedTasksHTML);
       }
-      taskContainer.save_to_storage();
     }
 
     // DELETE TASK
-    if (target.tagName === "BUTTON" && target.className === "delete-btn") {
-      const task_id = target.parentElement.parentElement.id;
-      const result = task_id.match(regex);
-      const selected_task_id = result[0];
-      // console.log("Delete Task ID: ", selected_task_id);
+    if (target.className === "delete-btn") {
+      const currentTaskState = selectedTask.getCurrentState();
+      taskContainer.deleteTask(taskId);
+      taskContainer.saveToStorage();
 
       // update ui
-      const selected_task = taskContainer.get_specific_task(selected_task_id);
-      // task state = render the current state HTML (task removal)
-      let task_state = "";
-      for (const [key, value] of Object.entries(selected_task.get_state())) {
-        if (value === true) {
-          task_state = key; // console.log(task_state);
-          break;
-        }
-      }
-      taskContainer.delete_task(selected_task_id);
-      taskContainer.save_to_storage();
-      // update ui
-      if (task_state === "pending") {
+      if (currentTaskState === "pending") {
         renderPendingTasks(pendingTasksHTML);
-      } else if (task_state === "fulfilled") {
+      } else if (currentTaskState === "fulfilled") {
         renderFulfilledTasks(fulfilledTasksHTML);
       } else {
         renderRejectedTasks(rejectedTasksHTML);
@@ -249,28 +216,15 @@ if (taskContainerHTML) {
     }
 
     // ARCHIVE TASK
-    if (target.tagName === "BUTTON" && target.className === "archive-btn") {
-      const task_id = target.parentElement.parentElement.id;
-      const result = task_id.match(regex);
-      const selected_task_id = result[0]; // console.log("Archive Task ID: ", selected_task_id);
-      const selected_task = taskContainer.get_specific_task(selected_task_id);
-
-      selected_task.set_archived();
-      taskContainer.save_to_storage();
+    if (target.className === "archive-btn") {
+      const currentTaskState = selectedTask.getCurrentState();
+      selectedTask.setArchived();
+      taskContainer.saveToStorage();
 
       // update ui
-      // task state = render the current state HTML (task removal)
-      let task_state = "";
-      for (const [key, value] of Object.entries(selected_task.get_state())) {
-        if (value === true) {
-          task_state = key; // console.log(task_state);
-          break;
-        }
-      }
-      // update ui
-      if (task_state === "pending") {
+      if (currentTaskState === "pending") {
         renderPendingTasks(pendingTasksHTML);
-      } else if (task_state === "fulfilled") {
+      } else if (currentTaskState === "fulfilled") {
         renderFulfilledTasks(fulfilledTasksHTML);
       } else {
         renderRejectedTasks(rejectedTasksHTML);
@@ -282,19 +236,17 @@ if (taskContainerHTML) {
 // shows taskContainer content
 if (showTaskContainerBtn) {
   showTaskContainerBtn.addEventListener("click", () => {
-    console.log(taskContainer.get_all_task());
+    console.log(taskContainer.getAllTask());
   });
 }
 
 // shows localStorage content
+// CLEAR LOCAL STORAGE USING = localStorage.clear("Task_Container")
 if (show_localStorage_btn) {
   show_localStorage_btn.addEventListener("click", () => {
-    // CLEAR LOCAL STORAGE USING = localStorage.clear("Task_Container")
     const localStorageItems = JSON.parse(
       localStorage.getItem("Task_Container")
     );
     console.log(localStorageItems);
   });
 }
-
-// localStorage.clear("Task_Container")

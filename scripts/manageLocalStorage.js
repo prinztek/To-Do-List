@@ -1,16 +1,13 @@
 import Task from "../data/taskClass.js";
-import task_container from "./taskContainer.js";
+import taskContainer from "./taskContainer.js";
 
 function manageLocalStorage() {
   // adds all the content of localStorage to task_container
-  if (localStorage.getItem("Task_Container")) {
-    const localStorageItems = JSON.parse(
-      localStorage.getItem("Task_Container")
-    );
-
-    for (let x = 0; x < localStorageItems.length; x++) {
-      const task = localStorageItems[x];
-      const storage_task = new Task(
+  if (localStorage.getItem("TaskContainer")) {
+    const localStorageItems = JSON.parse(localStorage.getItem("TaskContainer"));
+    for (let i = 0; i < localStorageItems.length; i++) {
+      const task = localStorageItems[i];
+      const taskFromStorage = new Task(
         task.id,
         task.name,
         task.description,
@@ -19,7 +16,7 @@ function manageLocalStorage() {
         task.archived
       );
 
-      task_container.add_task(storage_task); // console.log("LocalStorage Task:", storage_task);
+      taskContainer.addTask(taskFromStorage);
     }
   }
 }

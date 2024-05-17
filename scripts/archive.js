@@ -1,33 +1,34 @@
 import manageLocalStorage from "./manageLocalStorage.js";
-import task_container from "./taskContainer.js";
+import taskContainer from "./taskContainer.js";
 
-const archived_task = document.querySelector(".archived-task-container");
+const archivedTask = document.querySelector(".archived-task-container");
 
 manageLocalStorage();
-archived_task.innerHTML = task_container.get_all_archived_task_HTML();
+archivedTask.innerHTML = taskContainer.getAllArchivedTaskHTML();
 
-archived_task.addEventListener("click", (event) => {
+archivedTask.addEventListener("click", (event) => {
   const target = event.target;
   // console.log(target, target.tagName);
+  if (target.tagName != "BUTTON") return;
 
-  if (target.tagName === "BUTTON") {
-    const task_id = target.parentElement.parentElement.id;
-    let regex = /[0-9]*[0-9]/;
-    if (target.className === "delete-btn") {
-      const result = task_id?.match(regex);
-      const selected_task_id = task_container.get_specific_task(result[0]).id;
-      task_container.delete_task(selected_task_id);
-      task_container.save_to_storage();
-      console.log(selected_task_id);
-    } else {
-      const result = task_id?.match(regex);
-      const selected_task = task_container.get_specific_task(result[0]);
-      selected_task.set_archived();
-      task_container.save_to_storage();
-      console.log(selected_task);
-    }
-    archived_task.innerHTML = task_container.get_all_archived_task_HTML();
+  let regex = /[0-9]*[0-9]/;
+  const taskHTML = target.closest(".task");
+  const taskIdAttribute = taskHTML.id;
+  const taskId = taskIdAttribute.match(regex)[0];
+  const selectedTask = taskContainer.getTask(taskId);
+
+  if (target.className === "delete-btn") {
+    taskContainer.deleteTask(taskId);
+    taskContainer.saveToStorage();
   }
+
+  if (target.className === "unarchive-btn") {
+    selectedTask.setArchived();
+    console.log(selectedTask);
+    taskContainer.saveToStorage();
+  }
+
+  archivedTask.innerHTML = taskContainer.getAllArchivedTaskHTML();
 });
 
 /* 

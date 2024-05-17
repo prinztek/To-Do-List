@@ -1,87 +1,86 @@
 export default class TaskContainer {
   constructor() {
-    this.task_container_obj = [];
+    this.taskContainerObject = [];
   }
 
-  add_task(task) {
-    this.task_container_obj.push(task);
-    this.save_to_storage();
+  addTask(task) {
+    this.taskContainerObject.push(task);
+    this.saveToStorage();
   }
 
-  save_to_storage() {
+  saveToStorage() {
     localStorage.setItem(
-      "Task_Container",
-      JSON.stringify(this.task_container_obj)
+      "TaskContainer",
+      JSON.stringify(this.taskContainerObject)
     );
   }
 
-  get_specific_task(task_id) {
-    for (let i = 0; i < this.task_container_obj.length; i++) {
-      const task = this.task_container_obj[i];
-      if (task.id == task_id) {
+  getTask(taskId) {
+    for (let i = 0; i < this.taskContainerObject.length; i++) {
+      const task = this.taskContainerObject[i];
+      if (task.id == taskId) {
         return task;
       }
     }
   }
 
-  get_all_task() {
-    return this.task_container_obj;
+  getAllTask() {
+    return this.taskContainerObject;
   }
 
-  get_all_task_HTML() {
+  getAllTaskHTML() {
     let all_task_HTML = ``;
-    this.task_container_obj.forEach((task) => {
-      all_task_HTML += task.get_HTML();
+    this.taskContainerObject.forEach((task) => {
+      all_task_HTML += task.getHTML();
     });
     return all_task_HTML;
   }
 
-  get_all_pending_task_HTML() {
+  getAllPendingTaskHTML() {
     let all_task_HTML = ``;
-    this.task_container_obj.forEach((task) => {
-      // console.log(task.state);
+    this.taskContainerObject.forEach((task) => {
       if (task?.state?.pending === true && task.archived === false) {
-        all_task_HTML += task.get_HTML();
+        all_task_HTML += task.getHTML();
       }
     });
     return all_task_HTML;
   }
 
-  get_all_fulfilled_task_HTML() {
+  getAllFulfilledTaskHTML() {
     let all_task_HTML = ``;
-    this.task_container_obj.forEach((task) => {
+    this.taskContainerObject.forEach((task) => {
       if (task?.state?.fulfilled === true && task.archived === false) {
-        all_task_HTML += task.get_HTML();
+        all_task_HTML += task.getHTML();
       }
     });
     return all_task_HTML;
   }
 
-  get_all_rejected_task_HTML() {
+  getAllRejectedTaskHTML() {
     let all_task_HTML = ``;
-    this.task_container_obj.forEach((task) => {
+    this.taskContainerObject.forEach((task) => {
       if (task?.state?.rejected === true && task.archived === false) {
-        all_task_HTML += task.get_HTML();
+        all_task_HTML += task.getHTML();
       }
     });
     return all_task_HTML;
   }
 
-  get_all_archived_task_HTML() {
+  getAllArchivedTaskHTML() {
     let all_task_HTML = ``;
-    this.task_container_obj.forEach((task) => {
+    this.taskContainerObject.forEach((task) => {
       if (task.archived === true) {
-        all_task_HTML += task.get_archived_HTML();
+        all_task_HTML += task.getArchivedHTML();
       }
     });
     return all_task_HTML;
   }
 
-  delete_task(task_id) {
-    for (let i = 0; i < this.task_container_obj.length; i++) {
-      const task = this.task_container_obj[i];
+  deleteTask(task_id) {
+    for (let i = 0; i < this.taskContainerObject.length; i++) {
+      const task = this.taskContainerObject[i];
       if (task.id === Number(task_id)) {
-        this.task_container_obj.splice(i, 1);
+        this.taskContainerObject.splice(i, 1);
       }
     }
   }

@@ -9,19 +9,19 @@ export default class Task {
   }
 
   // Setter methods
-  set_name(name) {
+  setName(name) {
     this.name = name;
   }
 
-  set_description(description) {
+  setDescription(description) {
     this.description = description;
   }
 
-  set_target_date(target_date) {
+  setTargetDate(target_date) {
     this.target_date = target_date;
   }
 
-  set_state(change_state) {
+  setState(change_state) {
     for (let key in this.state) {
       if (key != change_state) {
         this.state[key] = false;
@@ -31,28 +31,28 @@ export default class Task {
     }
   }
 
-  set_archived() {
+  setArchived() {
     this.archived = !this.archived;
   }
 
   // Getter methods
-  get_details() {
+  getDetails() {
     return `${this.id} ${this.name}, ${this.description}, ${this.target_date}`;
   }
 
-  get_state() {
+  getState() {
     return this.state;
   }
 
-  get_true_state() {
+  getCurrentState() {
     for (const [key, value] of Object.entries(this.state)) {
       if (value === true) {
-        return `<p class="task-current-state">State: ${key}</p>`;
+        return key;
       }
     }
   }
 
-  get_HTML() {
+  getHTML() {
     return `
   <div class="task" id="task-no-${this.id}">
     <p class="task-name">${this.name}</p>
@@ -87,14 +87,14 @@ export default class Task {
   </div>`;
   }
 
-  get_archived_HTML() {
+  getArchivedHTML() {
     return `
     <div class="task" id="task-no-${this.id}">
       <p class="task-name">${this.name}</p>
       <p class="task-description">${this.description}</p>
       <p class="task-target-date">
       ${this.target_date.length > 0 ? "" : "Due"} ${this.target_date}</p>
-      ${this.get_true_state()}
+      <p class="task-current-state">State: ${this.getCurrentState()}</p>
       <div class="task-btns">
         <button class="delete-btn" data-action="delete">Delete</button>
         ${
