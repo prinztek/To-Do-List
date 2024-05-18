@@ -1,7 +1,13 @@
 import manageLocalStorage from "./manageLocalStorage.js";
-import generateRandomNumber from "./genrateRandomNumber.js";
 import taskContainer from "./taskContainer.js";
 import Task from "../data/taskClass.js";
+import {
+  generateRandomNumber,
+  isWhiteSpaceOnly,
+  escapeHTMLCharacters,
+  unescapeHTMLCharacters,
+  checkForHTMLCharacters,
+} from "./utils.js";
 
 // DOM elements
 const taskContainerHTML = document.querySelector(".task-container");
@@ -61,39 +67,6 @@ if (closeViewTaskBtn) {
   closeViewTaskBtn.addEventListener("click", () => {
     viewTaskModal.close();
   });
-}
-
-function isWhiteSpaceOnly(input_string) {
-  return input_string.trim() === "";
-}
-
-function escapeHTMLCharacters(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-    .replace(/`/g, "&#96;")
-    .replace(/\\/g, "\\\\")
-    .replace(/\$/g, "\\$");
-}
-
-function unescapeHTMLCharacters(str) {
-  return str
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&#96;/g, "`")
-    .replace(/&amp;/g, "&")
-    .replace(/\\\\/g, "\\")
-    .replace(/\\\$/g, "$");
-}
-
-function checkForHTMLCharacters(str) {
-  const htmlPattern = /&(lt|gt|quot|#39|#96|amp);|\\\\|/;
-  return htmlPattern.test(str);
 }
 
 // adds new task to (taskContainer)
