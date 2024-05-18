@@ -67,6 +67,35 @@ function isWhiteSpaceOnly(input_string) {
   return input_string.trim() === "";
 }
 
+function escapeHTMLCharacters(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/`/g, "&#96;")
+    .replace(/\\/g, "\\\\")
+    .replace(/\$/g, "\\$");
+}
+
+function unescapeHTMLCharacters(str) {
+  return str
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#96;/g, "`")
+    .replace(/&amp;/g, "&")
+    .replace(/\\\\/g, "\\")
+    .replace(/\\\$/g, "$");
+}
+
+function checkForHTMLCharacters(str) {
+  const htmlPattern = /&(lt|gt|quot|#39|#96|amp);|\\\\|/;
+  return htmlPattern.test(str);
+}
+
 // adds new task to (taskContainer)
 if (confirmBtn) {
   confirmBtn.addEventListener("click", () => {
@@ -79,6 +108,11 @@ if (confirmBtn) {
       alert("Empty Promises are not allowed!");
       return;
     }
+
+    if (checkForHTMLCharacters(descInput)) {
+      descInput = escapeHTMLCharacters(descInput);
+    }
+
     // creates an instance of (task) and then
     const newTask = new Task(
       generateRandomNumber(),
@@ -115,7 +149,9 @@ function saveChanges(taskId) {
   }
 
   selectedTask.name = nameInput.value;
-  selectedTask.description = descInput.value;
+  if (checkForHTMLCharacters(descInput.value)) {
+    selectedTask.description = escapeHTMLCharacters(descInput.value);
+  }
   selectedTask.target_date = dateInput.value;
 
   taskContainer.saveToStorage();
@@ -158,8 +194,11 @@ if (taskContainerHTML) {
       let nameInput = document.querySelector(".view-task-name-input");
       let descInput = document.querySelector(".view-task-description-input");
       let dateInput = document.querySelector(".view-task-target-date-input");
+
       nameInput.value = selectedTask.name;
-      descInput.value = selectedTask.description;
+      if (checkForHTMLCharacters(descInput.value)) {
+        descInput.value = unescapeHTMLCharacters(selectedTask.description);
+      }
       dateInput.value = selectedTask.target_date;
       selectedTaskOpen = selectedTask.id;
     }
