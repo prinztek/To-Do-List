@@ -34,3 +34,11 @@ function checkForHTMLCharacters(str) {
   const htmlPattern = /&(lt|gt|quot|#39|#96|amp);|\\\\|/;
   return htmlPattern.test(str);
 }
+
+export {
+  generateRandomNumber,
+  isWhiteSpaceOnly,
+  escapeHTMLCharacters,
+  unescapeHTMLCharacters,
+  checkForHTMLCharacters,
+};
