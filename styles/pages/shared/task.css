@@ -2,23 +2,29 @@
   background-color: var(--background-color);
   border: var(--border-width) solid var(--secondary-color);
   border-radius: var(--border-radius);
-  padding: 15px;
+  padding: 10px;
   margin-bottom: 12px;
+  min-height: 165px;
+  box-sizing: border-box;
 }
 
 .task p {
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
 .task-name {
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 .task-description {
-  font-size: 1em;
-  margin-bottom: 10px;
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}
+
+.task-name,
+.task-description {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -97,6 +103,7 @@
 }
 
 .task-btns button {
+  width: 75px;
   background-color: var(--primary-color);
   color: var(--text-color);
   border: var(--border-width) solid var(--secondary-color);
@@ -129,6 +136,7 @@
 /* For tablets and small desktops */
 @media (max-width: 1024px) {
   .state {
+    background-color: red;
     flex: 1 1 45%; /* Take up 45% of container on smaller screens */
   }
 
@@ -138,14 +146,15 @@
   }
 }
 
-/* For mobile devices */
-@media (max-width: 600px) {
-  .state {
-    flex: 1 1 100%; /* Take up 100% of container on mobile devices */
+/* Target iPhone SE in portrait mode */
+@media only screen and (device-width: 375) and (device-height: 667) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) {
+  /* Your CSS rules for iPhone SE portrait mode */
+  .task-container {
+    display: flex;
+    flex-direction: column;
   }
 
-  .task-states,
-  .task-btns {
-    flex-wrap: wrap;
+  .task {
+    background-color: red;
   }
 }
