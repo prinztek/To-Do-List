@@ -28,8 +28,17 @@ function saveChanges(taskId) {
   let nameInput = document.querySelector(".view-task-name-input");
   let descInput = document.querySelector(".view-task-description-input");
   let dateInput = document.querySelector(".view-task-target-date-input");
+
+  if (isWhiteSpaceOnly(nameInput.value)) {
+    alert("Empty Promises are not allowed!");
+    return;
+  }
   selectedTask.name = nameInput.value;
-  selectedTask.description = descInput.value;
+
+  selectedTask.name = nameInput.value;
+  if (checkForHTMLCharacters(descInput.value)) {
+    selectedTask.description = escapeHTMLCharacters(descInput.value);
+  }
   selectedTask.target_date = dateInput.value;
 
   taskContainer.saveToStorage();
