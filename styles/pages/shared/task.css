@@ -103,7 +103,7 @@
 }
 
 .task-btns button {
-  width: 75px;
+  width: 85px;
   background-color: var(--primary-color);
   color: var(--text-color);
   border: var(--border-width) solid var(--secondary-color);
@@ -129,32 +129,4 @@
 
 .task-btns button:hover {
   opacity: 0.8;
-}
-
-/* Media Queries for responsiveness */
-
-/* For tablets and small desktops */
-@media (max-width: 1024px) {
-  .state {
-    background-color: red;
-    flex: 1 1 45%; /* Take up 45% of container on smaller screens */
-  }
-
-  .task-states,
-  .task-btns {
-    flex-wrap: wrap;
-  }
-}
-
-/* Target iPhone SE in portrait mode */
-@media only screen and (device-width: 375) and (device-height: 667) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) {
-  /* Your CSS rules for iPhone SE portrait mode */
-  .task-container {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .task {
-    background-color: red;
-  }
 }
