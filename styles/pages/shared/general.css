@@ -11,6 +11,7 @@
 
 html {
   height: 100%;
+  width: 100%;
 }
 
 main {
@@ -52,4 +53,89 @@ textarea {
   padding: 10px;
   width: 100%;
   box-sizing: border-box;
+}
+
+/* Media Queries for responsiveness */
+
+/* Mobile devices (320px - 480px) */
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .task-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .task-container > .state {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .all-task-container,
+  .archived-task-container {
+    grid-template-columns: 1fr;
+  }
+
+  .all-task-container > .task,
+  .archived-task-container > .task {
+    margin: auto;
+  }
+
+  .task {
+    width: 315px;
+  }
+
+  .task-states {
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  .task-states input[type="radio"] + label {
+    padding-left: 21px;
+    font-size: 0.7em;
+  }
+
+  .task-btns {
+    flex-wrap: wrap;
+  }
+}
+
+/* iPads, Tablets (481px - 768px) */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .task-states {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  .task-states input[type="radio"] + label {
+    padding-left: 21px;
+    font-size: 0.7em;
+  }
+
+  .task-btns {
+    flex-wrap: wrap;
+  }
+}
+
+/* Small screens, laptops (769px - 1024px) */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .task-states {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  .task-states input[type="radio"] + label {
+    padding-left: 21px;
+    font-size: 0.7em;
+  }
+
+  .task-btns {
+    flex-wrap: wrap;
+  }
 }
